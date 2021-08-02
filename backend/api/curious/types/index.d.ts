@@ -436,33 +436,33 @@ declare namespace curious {
   export interface LearnerHistory {
     /**
      *
-     * @type {String<LearnerHistory>}
+     * @type {Number<LearnerHistory>}
      * @memberof LearnerHistory
      */
-    total?: string
+    total?: number
     /**
      *
-     * @type {String<LearnerHistory>}
+     * @type {Number<LearnerHistory>}
      * @memberof LearnerHistory
      */
-    inProgress?: string
+    inProgress?: number
     /**
      *
-     * @type {String<LearnerHistory>}
+     * @type {Number<LearnerHistory>}
      * @memberof LearnerHistory
      */
-    achieved?: string
+    achieved?: number
     /**
      *
-     * @type {String<LearnerHistory>}
+     * @type {Number<LearnerHistory>}
      * @memberof LearnerHistory
      */
-    failed?: string
+    failed?: number
     /**
      *
-     * @type {String<LearnerHistory>}
+     * @type {Number<LearnerHistory>}
      * @memberof LearnerHistory
      */
-    withdrawn?: string
+    withdrawn?: number
   }
 }

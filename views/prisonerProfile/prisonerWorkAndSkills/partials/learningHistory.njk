@@ -6,35 +6,35 @@
     <ul class="govuk-list" data-test="learning-history-list">
         <li>
             {{govukTag({
-            text: learningHistory['total'],
+            text: learningHistory['total'].toString(),
             classes: "govuk-!-margin-right-1 govuk-tag--grey app-!-font-family-tabular-bold"
             })}}
             Total courses
         </li>
         <li>
             {{govukTag({
-            text: learningHistory['inProgress'],
+            text: learningHistory['inProgress'].toString(),
             classes: "govuk-!-margin-right-1 govuk-tag--yellow app-!-font-family-tabular-bold"
             })}}
             In progress
         </li>
         <li>
             {{govukTag({
-            text: learningHistory['achieved'],
+            text: learningHistory['achieved'].toString(),
             classes: "govuk-!-margin-right-1 govuk-tag--green app-!-font-family-tabular-bold"
             })}}
             Achieved
         </li>
         <li>
             {{govukTag({
-            text: learningHistory['failed'],
+            text: learningHistory['failed'].toString(),
             classes: "govuk-!-margin-right-1 govuk-tag--red app-!-font-family-tabular-bold"
             })}}
             Failed
         </li>
         <li>
             {{govukTag({
-            text: learningHistory['withdrawn'],
+            text: learningHistory['withdrawn'].toString(),
             classes: "govuk-!-margin-right-1 govuk-tag--red app-!-font-family-tabular-bold"
             })}}
             Withdrawn

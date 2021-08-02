@@ -45,11 +45,11 @@ export const DEFAULT_SKILL_LEVELS = {
 }
 
 export const DEFAULT_LEARNER_HISTORY = {
-  total: '0',
-  inProgress: '0',
-  achieved: '0',
-  failed: '0',
-  withdrawn: '0',
+  total: 0,
+  inProgress: 0,
+  achieved: 0,
+  failed: 0,
+  withdrawn: 0,
 }
 
 const parseDate = (value: string) => moment(value, CURIOUS_DATE_FORMAT)
@@ -233,14 +233,14 @@ export default class EsweService {
         (course) => course.completionStatus?.includes('completed') && course.outcomeGrade === 'Fail'
       ).length
       const withdrawn = content.filter((course) => course.completionStatus?.includes('withdrawn')).length
-      const total = (inProgress + achieved + failed + withdrawn).toString()
+      const total = inProgress + achieved + failed + withdrawn
 
       const learningHistoryCounts = {
         total,
-        inProgress: inProgress.toString(),
-        achieved: achieved.toString(),
-        failed: failed.toString(),
-        withdrawn: withdrawn.toString(),
+        inProgress,
+        achieved,
+        failed,
+        withdrawn,
       }
 
       return createFlaggedContent(learningHistoryCounts)

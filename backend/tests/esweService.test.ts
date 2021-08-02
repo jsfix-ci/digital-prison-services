@@ -285,11 +285,11 @@ describe('Education skills and work experience', () => {
       })
       it('should return the expected response if there are courses available', async () => {
         const expected = {
-          total: '4',
-          inProgress: '1',
-          achieved: '1',
-          failed: '1',
-          withdrawn: '1',
+          total: 4,
+          inProgress: 1,
+          achieved: 1,
+          failed: 1,
+          withdrawn: 1,
         }
         jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(true)
         const actual = await service.getLearnerEducation(nomisId)
