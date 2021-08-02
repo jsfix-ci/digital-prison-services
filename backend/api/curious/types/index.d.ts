@@ -427,4 +427,37 @@ declare namespace curious {
      */
     digiLit?: Array
   }
+
+  /**
+   *
+   * @export
+   * @interface LearnerGoals
+   */
+  export interface LearnerGoals {
+    prn?: string
+    /**
+     *
+     * @type {Array<LearnerGoals>}
+     * @memberof LearnerGoals
+     */
+    employmentGoals?: Array
+    /**
+     *
+     * @type {Array<LearnerGoals>}
+     * @memberof LearnerGoals
+     */
+    personalGoals?: Array
+    /**
+     *
+     * @type {Array<LearnerGoals>}
+     * @memberof LearnerGoals
+     */
+    longTermGoals?: Array
+    /**
+     *
+     * @type {Array<LearnerGoals>}
+     * @memberof LearnerGoals
+     */
+    shortTermGoals?: Array
+  }
 }

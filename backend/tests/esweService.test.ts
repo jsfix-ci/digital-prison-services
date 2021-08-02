@@ -22,6 +22,7 @@ describe('Education skills and work experience', () => {
   let getLearnerProfilesMock
   let getLearnerEducationMock
   let getLearnerLatestAssessmentsMock
+  let getLearnerGoalsMock
   beforeEach(() => {
     getLearnerProfilesMock = jest.fn()
     getLearnerEducationMock = jest.fn()
@@ -29,6 +30,7 @@ describe('Education skills and work experience', () => {
     curiousApi.getLearnerProfiles = getLearnerProfilesMock
     curiousApi.getLearnerEducation = getLearnerEducationMock
     curiousApi.getLearnerLatestAssessments = getLearnerLatestAssessmentsMock
+    curiousApi.getLearnerGoals = getLearnerGoalsMock
     systemOauthClient.getClientCredentialsTokens.mockReset()
 
     getLearnerProfilesMock.mockResolvedValue(dummyLearnerProfiles)

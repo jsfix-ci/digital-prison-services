@@ -30,6 +30,25 @@ export default class CuriousApi {
       .then((response) => response.body)
   }
 
+  getLearnerGoals(context: ClientContext, nomisId: string): Array<curious.LearnerGoals> {
+    // return this.client
+    //   .get<curious.LearnerProfile[]>(context, `/latestLearnerAssessments/${nomisId}`)
+    //   .then((response) => response.body)
+    return [
+      {
+        prn: 'sdfsdfs',
+        employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
+        personalGoals: [
+          // 'To be able to support my family',
+          // 'To get a 100% attendance record on my classes',
+          // 'To make my mum proud',
+        ],
+        longTermGoals: ['To buy a house'],
+        shortTermGoals: ['To get out of my overdraft'],
+      },
+    ]
+  }
+
   private applyQuery = (path, query?: Record<string, unknown>) =>
     this.hasNonEmptyValues(query) ? `${path}?${querystring.stringify(query)}` : path
 

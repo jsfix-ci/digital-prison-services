@@ -1,0 +1,26 @@
+{% from "../../macros/prisonerSummarySection.njk" import prisonerSummarySection %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% set employmentGoals = goals.employmentGoals %}
+{% set personalGoals = goals.personalGoals %}
+
+{% block prisonerProfileSection %}
+  {% if goals %}
+    <h2 class="govuk-heading-m card__heading">Employment goals</h2>
+    <ul class="govuk-list">
+        {% for goal in employmentGoals %}
+            <li class="govuk-body govuk-!-margin-bottom-4">{{ goal }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2 class="govuk-heading-m card__heading">Personal goals</h2>
+    <ul class="govuk-list">
+        {% for goal in personalGoals %}
+            <li class="govuk-body govuk-!-margin-bottom-4">{{ goal }}</li>
+        {% endfor %}
+    </ul>
+  {% else %}
+    <p class="govuk-body" data-test="curious-api-errorMessage">{{ errorMessage }}</p>
+  {% endif %}
+
+{% endblock %}
