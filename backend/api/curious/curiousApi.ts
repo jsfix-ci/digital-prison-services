@@ -39,9 +39,9 @@ export default class CuriousApi {
         prn: 'sdfsdfs',
         employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
         personalGoals: [
-          // 'To be able to support my family',
-          // 'To get a 100% attendance record on my classes',
-          // 'To make my mum proud',
+          'To be able to support my family',
+          'To get a 100% attendance record on my classes',
+          'To make my mum proud',
         ],
         longTermGoals: ['To buy a house'],
         shortTermGoals: ['To get out of my overdraft'],
