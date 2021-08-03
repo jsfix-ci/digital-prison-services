@@ -26,6 +26,11 @@ const DATA_NOT_ADDED = 'Not entered'
 
 const AWAITING_ASSESSMENT_CONTENT = 'Awaiting assessment'
 
+export const DEFAULT_GOALS = {
+  employmentGoals: [DATA_NOT_ADDED],
+  personalGoals: [DATA_NOT_ADDED],
+}
+
 export const DEFAULT_SKILL_LEVELS = {
   english: [
     {
@@ -260,17 +265,12 @@ export default class EsweService {
 
   async getLearnerGoals(nomisId: string): Promise<OffenderGoals> {
     if (!app.esweEnabled) {
-      return createFlaggedContent({})
+      return createFlaggedContent(null)
     }
 
     try {
       const context = await this.systemOauthClient.getClientCredentialsTokens()
       const goals = await this.curiousApi.getLearnerGoals(context, nomisId)
-
-      const emptyGoals = {
-        employmentGoals: [DATA_NOT_ADDED],
-        personalGoals: [DATA_NOT_ADDED],
-      }
 
       if (Array.isArray(goals) && goals.length > 0) {
         const { employmentGoals, personalGoals } = goals[0]
@@ -280,11 +280,11 @@ export default class EsweService {
         }
         return createFlaggedContent(displayedGoals)
       }
-      return createFlaggedContent(emptyGoals)
+      return createFlaggedContent(DEFAULT_GOALS)
     } catch (e) {
       if (e.status === 404) {
         log.info(`Offender record not found in Curious.`)
-        return createFlaggedContent(null)
+        return createFlaggedContent(DEFAULT_GOALS)
       }
       log.error(`Failed to get offender goals. Reason: ${e.message}`)
     }

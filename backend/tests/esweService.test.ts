@@ -1,4 +1,4 @@
-import EsweService, { DEFAULT_LEARNER_HISTORY, DEFAULT_SKILL_LEVELS } from '../services/esweService'
+import EsweService, { DEFAULT_GOALS, DEFAULT_LEARNER_HISTORY, DEFAULT_SKILL_LEVELS } from '../services/esweService'
 import { app } from '../config'
 import CuriousApi from '../api/curious/curiousApi'
 
@@ -13,6 +13,7 @@ jest.mock('../config', () => ({
 describe('Education skills and work experience', () => {
   const dummyLearnerProfiles = getDummyLearnerProfiles()
   const dummyEducations = getDummyEducations()
+  const dummyGoals = getDummyGoals()
   const credentialsRef = {}
   const curiousApi = {} as CuriousApi
   const systemOauthClient = {
@@ -27,6 +28,7 @@ describe('Education skills and work experience', () => {
     getLearnerProfilesMock = jest.fn()
     getLearnerEducationMock = jest.fn()
     getLearnerLatestAssessmentsMock = jest.fn()
+    getLearnerGoalsMock = jest.fn()
     curiousApi.getLearnerProfiles = getLearnerProfilesMock
     curiousApi.getLearnerEducation = getLearnerEducationMock
     curiousApi.getLearnerLatestAssessments = getLearnerLatestAssessmentsMock
@@ -35,6 +37,7 @@ describe('Education skills and work experience', () => {
 
     getLearnerProfilesMock.mockResolvedValue(dummyLearnerProfiles)
     getLearnerEducationMock.mockResolvedValue(dummyEducations)
+    getLearnerGoalsMock.mockResolvedValue(dummyGoals)
 
     systemOauthClient.getClientCredentialsTokens.mockReturnValue(credentialsRef)
     service = EsweService.create(curiousApi, systemOauthClient)
@@ -299,6 +302,54 @@ describe('Education skills and work experience', () => {
         expect(actual.content).toEqual(expected)
       })
     })
+    describe('Learner goals', () => {
+      const nomisId = 'G2823GV'
+      it('should return null when feature flag is disabled', async () => {
+        jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(false)
+        const actual = await service.getLearnerGoals(nomisId)
+        expect(actual.enabled).toBeFalsy()
+        expect(actual.content).toBeNull()
+        expect(getLearnerGoalsMock).not.toHaveBeenCalled()
+        expect(systemOauthClient.getClientCredentialsTokens).not.toHaveBeenCalled()
+      })
+      it('should return null content on error', async () => {
+        jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(true)
+        getLearnerGoalsMock.mockRejectedValue(new Error('error'))
+        const actual = await service.getLearnerGoals(nomisId)
+        expect(actual.content).toBeNull()
+      })
+      it('should return expected response when the prisoner is not registered in Curious', async () => {
+        const error = {
+          status: 404,
+        }
+        jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(true)
+        getLearnerGoalsMock.mockRejectedValue(error)
+        const actual = await service.getLearnerGoals(nomisId)
+        expect(actual.enabled).toBeTruthy()
+        expect(actual.content).toEqual(DEFAULT_GOALS)
+      })
+      it('should return the expected response if there are no goals available', async () => {
+        jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(true)
+        getLearnerGoalsMock.mockResolvedValue([])
+        const actual = await service.getLearnerGoals(nomisId)
+        expect(actual.enabled).toBeTruthy()
+        expect(actual.content).toEqual(DEFAULT_GOALS)
+      })
+      it('should return the expected response if there are goals available', async () => {
+        const expected = {
+          employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
+          personalGoals: [
+            'To be able to support my family',
+            'To get a 100% attendance record on my classes',
+            'To make my mum proud',
+          ],
+        }
+        jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(true)
+        const actual = await service.getLearnerGoals(nomisId)
+        expect(actual.enabled).toBeTruthy()
+        expect(actual.content).toEqual(expected)
+      })
+    })
   })
 })
 
@@ -337,6 +388,22 @@ function getDummyLearnerProfiles(): curious.LearnerProfile[] {
       ],
       languageStatus: 'string',
       plannedHours: 8,
+    },
+  ]
+}
+
+function getDummyGoals(): curious.LearnerGoals[] {
+  return [
+    {
+      prn: 'sdfsdfs',
+      employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
+      personalGoals: [
+        'To be able to support my family',
+        'To get a 100% attendance record on my classes',
+        'To make my mum proud',
+      ],
+      longTermGoals: ['To buy a house'],
+      shortTermGoals: ['To get out of my overdraft'],
     },
   ]
 }
