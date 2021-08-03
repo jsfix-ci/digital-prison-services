@@ -36,6 +36,7 @@ context('Prisoner Work and Skills', () => {
       })
       cy.task('stubLatestLearnerAssessments500Error', {})
       cy.task('stubLearnerEducation500Error', {})
+      // cy.task('stubLearnerGoals500Error', {})
       visitWorkAndSkillsAndExpandAccordions()
     })
 
@@ -50,6 +51,11 @@ context('Prisoner Work and Skills', () => {
         cy.get('[data-test="learner-history-errorMessage"]').should('have.text', apiErrorText)
       })
     })
+    // context('goals section', () => {
+    //   it('should show correct error message', () => {
+    //     cy.get('[data-test="goals-errorMessage"]').should('have.text', apiErrorText)
+    //   })
+    // })
   })
 
   context('When the prisoner is not in Curious', () => {
@@ -63,6 +69,7 @@ context('Prisoner Work and Skills', () => {
       })
       cy.task('stubLatestLearnerAssessments404Error', {})
       cy.task('stubLearnerEducation404Error', {})
+      cy.task('stubLearnerGoals404Error', {})
       visitWorkAndSkillsAndExpandAccordions()
     })
 
@@ -94,6 +101,29 @@ context('Prisoner Work and Skills', () => {
         })
       })
     })
+
+    // context('goals section', () => {
+    //   it('should show default message for employment goals', () => {
+    //     cy.get('[data-test="learner-employment-goals"]').then(($ul) => {
+    //       cy.get($ul)
+    //         .find('li')
+    //         .then(($listElement) => {
+    //           cy.get($listElement).its('length').should('eq', 1)
+    //           expect($listElement.get(0)).to.contain('Not entered')
+    //         })
+    //     })
+    //   })
+    //   it('should show default message for personal goals', () => {
+    //     cy.get('[data-test="learner-personal-goals"]').then(($ul) => {
+    //       cy.get($ul)
+    //         .find('li')
+    //         .then(($listElement) => {
+    //           cy.get($listElement).its('length').should('eq', 1)
+    //           expect($listElement.get(0)).to.contain('Not entered')
+    //         })
+    //     })
+    //   })
+    // })
   })
 
   context('When the user is in Curious but there is no data', () => {
@@ -111,6 +141,7 @@ context('Prisoner Work and Skills', () => {
       })
       cy.task('stubLatestLearnerAssessments', [functionalSkillsAssessments])
       cy.task('stubLearnerEducation', [])
+      // cy.task('stubLearnerGoals', [])
       visitWorkAndSkillsAndExpandAccordions()
     })
 
@@ -145,6 +176,29 @@ context('Prisoner Work and Skills', () => {
         })
       })
     })
+
+    // context('goals section', () => {
+    //   it('should show default message for employment goals', () => {
+    //     cy.get('[data-test="learner-employment-goals"]').then(($ul) => {
+    //       cy.get($ul)
+    //         .find('li')
+    //         .then(($listElement) => {
+    //           cy.get($listElement).its('length').should('eq', 1)
+    //           expect($listElement.get(0)).to.contain('Not entered')
+    //         })
+    //     })
+    //   })
+    //   it('should show default message for personal goals', () => {
+    //     cy.get('[data-test="learner-personal-goals"]').then(($ul) => {
+    //       cy.get($ul)
+    //         .find('li')
+    //         .then(($listElement) => {
+    //           cy.get($listElement).its('length').should('eq', 1)
+    //           expect($listElement.get(0)).to.contain('Not entered')
+    //         })
+    //     })
+    //   })
+    // })
   })
 
   context('When the user is in Curious and there is data available', () => {
@@ -180,6 +234,20 @@ context('Prisoner Work and Skills', () => {
             },
           },
         ],
+      },
+    ]
+
+    const dummyGoals = [
+      {
+        prn: 'sdfsdfs',
+        employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
+        personalGoals: [
+          'To be able to support my family',
+          'To get a 100% attendance record on my classes',
+          'To make my mum proud',
+        ],
+        longTermGoals: ['To buy a house'],
+        shortTermGoals: ['To get out of my overdraft'],
       },
     ]
 
@@ -377,6 +445,7 @@ context('Prisoner Work and Skills', () => {
       })
       cy.task('stubLatestLearnerAssessments', functionalSkillsAssessments)
       cy.task('stubLearnerEducation', learningHistory)
+      cy.task('stubLearnerGoals', dummyGoals)
       visitWorkAndSkillsAndExpandAccordions()
     })
 
@@ -428,6 +497,32 @@ context('Prisoner Work and Skills', () => {
               expect($tags.get(2).innerText).to.contain('1 Achieved')
               expect($tags.get(3).innerText).to.contain('1 Failed')
               expect($tags.get(4).innerText).to.contain('1 Withdrawn')
+            })
+        })
+      })
+    })
+
+    context('goals section', () => {
+      it('should show the list of employment goals', () => {
+        cy.get('[data-test="learner-employment-goals"]').then(($ul) => {
+          cy.get($ul)
+            .find('li')
+            .then(($listElement) => {
+              cy.get($listElement).its('length').should('eq', 2)
+              expect($listElement.get(0)).to.contain('To be a plumber')
+              expect($listElement.get(1)).to.contain('To get a plumbing qualification')
+            })
+        })
+      })
+      it('should show the list of personal goals', () => {
+        cy.get('[data-test="learner-personal-goals"]').then(($ul) => {
+          cy.get($ul)
+            .find('li')
+            .then(($listElement) => {
+              cy.get($listElement).its('length').should('eq', 3)
+              expect($listElement.get(0)).to.contain('To be able to support my family')
+              expect($listElement.get(1)).to.contain('To get a 100% attendance record on my classes')
+              expect($listElement.get(2)).to.contain('To make my mum proud')
             })
         })
       })

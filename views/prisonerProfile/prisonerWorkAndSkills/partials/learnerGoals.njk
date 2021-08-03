@@ -7,20 +7,20 @@
 {% block prisonerProfileSection %}
   {% if goals %}
     <h2 class="govuk-heading-m card__heading">Employment goals</h2>
-    <ul class="govuk-list">
+    <ul class="govuk-list" data-test="learner-employment-goals">
         {% for goal in employmentGoals %}
             <li class="govuk-body govuk-!-margin-bottom-4">{{ goal }}</li>
         {% endfor %}
     </ul>
     
     <h2 class="govuk-heading-m card__heading">Personal goals</h2>
-    <ul class="govuk-list">
+    <ul class="govuk-list" data-test="learner-personal-goals">
         {% for goal in personalGoals %}
             <li class="govuk-body govuk-!-margin-bottom-4">{{ goal }}</li>
         {% endfor %}
     </ul>
   {% else %}
-    <p class="govuk-body" data-test="curious-api-errorMessage">{{ errorMessage }}</p>
+    <p class="govuk-body" data-test="goals-errorMessage">{{ errorMessage }}</p>
   {% endif %}
 
 {% endblock %}
