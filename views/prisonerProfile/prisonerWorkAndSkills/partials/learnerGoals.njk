@@ -6,17 +6,17 @@
 
 {% block prisonerProfileSection %}
   {% if goals %}
-    <h2 class="govuk-heading-m card__heading">Employment goals</h2>
+    <h2 class="govuk-heading-m card__heading" tabindex="0">Employment goals</h2>
     <ul class="govuk-list" data-test="learner-employment-goals">
         {% for goal in employmentGoals %}
-            <li class="govuk-body govuk-!-margin-bottom-4">{{ goal }}</li>
+            <li class="govuk-body govuk-!-margin-bottom-4" tabindex="0">{{ goal }}</li>
         {% endfor %}
     </ul>
     
-    <h2 class="govuk-heading-m card__heading">Personal goals</h2>
+    <h2 class="govuk-heading-m card__heading" tabindex="0">Personal goals</h2>
     <ul class="govuk-list" data-test="learner-personal-goals">
         {% for goal in personalGoals %}
-            <li class="govuk-body govuk-!-margin-bottom-4">{{ goal }}</li>
+            <li class="govuk-body govuk-!-margin-bottom-4" tabindex="0">{{ goal }}</li>
         {% endfor %}
     </ul>
   {% else %}
