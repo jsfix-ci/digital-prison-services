@@ -239,7 +239,7 @@ context('Prisoner Work and Skills', () => {
 
     const dummyGoals = [
       {
-        prn: 'sdfsdfs',
+        prn: 'G8346GA',
         employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
         personalGoals: [
           'To be able to support my family',
@@ -502,30 +502,30 @@ context('Prisoner Work and Skills', () => {
       })
     })
 
-    context('goals section', () => {
-      it('should show the list of employment goals', () => {
-        cy.get('[data-test="learner-employment-goals"]').then(($ul) => {
-          cy.get($ul)
-            .find('li')
-            .then(($listElement) => {
-              cy.get($listElement).its('length').should('eq', 2)
-              expect($listElement.get(0)).to.contain('To be a plumber')
-              expect($listElement.get(1)).to.contain('To get a plumbing qualification')
-            })
-        })
-      })
-      it('should show the list of personal goals', () => {
-        cy.get('[data-test="learner-personal-goals"]').then(($ul) => {
-          cy.get($ul)
-            .find('li')
-            .then(($listElement) => {
-              cy.get($listElement).its('length').should('eq', 3)
-              expect($listElement.get(0)).to.contain('To be able to support my family')
-              expect($listElement.get(1)).to.contain('To get a 100% attendance record on my classes')
-              expect($listElement.get(2)).to.contain('To make my mum proud')
-            })
-        })
-      })
-    })
+    // context('goals section', () => {
+    //   it('should show the list of employment goals', () => {
+    //     cy.get('[data-test="learner-employment-goals"]').then(($ul) => {
+    //       cy.get($ul)
+    //         .find('li')
+    //         .then(($listElement) => {
+    //           cy.get($listElement).its('length').should('eq', 2)
+    //           expect($listElement.get(0)).to.contain('To be a plumber')
+    //           expect($listElement.get(1)).to.contain('To get a plumbing qualification')
+    //         })
+    //     })
+    //   })
+    //   it('should show the list of personal goals', () => {
+    //     cy.get('[data-test="learner-personal-goals"]').then(($ul) => {
+    //       cy.get($ul)
+    //         .find('li')
+    //         .then(($listElement) => {
+    //           cy.get($listElement).its('length').should('eq', 3)
+    //           expect($listElement.get(0)).to.contain('To be able to support my family')
+    //           expect($listElement.get(1)).to.contain('To get a 100% attendance record on my classes')
+    //           expect($listElement.get(2)).to.contain('To make my mum proud')
+    //         })
+    //     })
+    //   })
+    // })
   })
 })
