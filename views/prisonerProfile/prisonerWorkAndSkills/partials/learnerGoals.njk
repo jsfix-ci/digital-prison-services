@@ -3,17 +3,18 @@
 
 {% set employmentGoals = goals.employmentGoals %}
 {% set personalGoals = goals.personalGoals %}
+{% set offenderName = (prisonerProfileData.offenderName).split(',')[1].trim()+(prisonerProfileData.offenderName).split(',')[0]  %}
 
 {% block prisonerProfileSection %}
   {% if goals %}
-    <h2 class="govuk-heading-m card__heading" tabindex="0">Employment goals</h2>
+    <h2 class="govuk-heading-m card__heading" tabindex="0" aria-label="Employment goals for {{offenderName}}">Employment goals</h2>
     <ul class="govuk-list" data-test="learner-employment-goals">
         {% for goal in employmentGoals %}
             <li class="govuk-body govuk-!-margin-bottom-4" tabindex="0">{{ goal }}</li>
         {% endfor %}
     </ul>
     
-    <h2 class="govuk-heading-m card__heading" tabindex="0">Personal goals</h2>
+    <h2 class="govuk-heading-m card__heading" tabindex="0" aria-label="Personal goals for {{offenderName}}">Personal goals</h2>
     <ul class="govuk-list" data-test="learner-personal-goals">
         {% for goal in personalGoals %}
             <li class="govuk-body govuk-!-margin-bottom-4" tabindex="0">{{ goal }}</li>
