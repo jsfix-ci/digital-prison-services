@@ -256,7 +256,7 @@ describe('Education skills and work experience', () => {
       })
     })
     describe('learner history', () => {
-      const nomisId = 'G2823GV'
+      const nomisId = 'G8346GA'
       it('should return null when feature flag is disabled', async () => {
         jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(false)
         const actual = await service.getLearnerEducation(nomisId)
@@ -303,7 +303,7 @@ describe('Education skills and work experience', () => {
       })
     })
     describe('Learner goals', () => {
-      const nomisId = 'G2823GV'
+      const nomisId = 'G3609VL'
       it('should return null when feature flag is disabled', async () => {
         jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(false)
         const actual = await service.getLearnerGoals(nomisId)
@@ -329,20 +329,23 @@ describe('Education skills and work experience', () => {
         expect(actual.content).toEqual(DEFAULT_GOALS)
       })
       it('should return the expected response if there are no goals available', async () => {
+        const emptyResponse = {
+          prn: 'G9981UK',
+          employmentGoals: [],
+          personalGoals: [],
+          longTermGoals: [],
+          shortTermGoals: [],
+        }
         jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(true)
-        getLearnerGoalsMock.mockResolvedValue([])
+        getLearnerGoalsMock.mockResolvedValue(emptyResponse)
         const actual = await service.getLearnerGoals(nomisId)
         expect(actual.enabled).toBeTruthy()
         expect(actual.content).toEqual(DEFAULT_GOALS)
       })
       it('should return the expected response if there are goals available', async () => {
         const expected = {
-          employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
-          personalGoals: [
-            'To be able to support my family',
-            'To get a 100% attendance record on my classes',
-            'To make my mum proud',
-          ],
+          employmentGoals: ['To be an electrician', 'To get an electrics qualification'],
+          personalGoals: ['To support my family', 'To be healthy'],
         }
         jest.spyOn(app, 'esweEnabled', 'get').mockReturnValue(true)
         const actual = await service.getLearnerGoals(nomisId)
@@ -392,20 +395,14 @@ function getDummyLearnerProfiles(): curious.LearnerProfile[] {
   ]
 }
 
-function getDummyGoals(): curious.LearnerGoals[] {
-  return [
-    {
-      prn: 'sdfsdfs',
-      employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
-      personalGoals: [
-        'To be able to support my family',
-        'To get a 100% attendance record on my classes',
-        'To make my mum proud',
-      ],
-      longTermGoals: ['To buy a house'],
-      shortTermGoals: ['To get out of my overdraft'],
-    },
-  ]
+function getDummyGoals(): curious.LearnerGoals {
+  return {
+    prn: 'G3609VL',
+    employmentGoals: ['To be an electrician', 'To get an electrics qualification'],
+    personalGoals: ['To support my family', 'To be healthy'],
+    longTermGoals: ['To be rich'],
+    shortTermGoals: ['Earn money'],
+  }
 }
 
 function getDummyEducations(): curious.LearnerEducation[] {

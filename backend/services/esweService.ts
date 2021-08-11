@@ -272,15 +272,12 @@ export default class EsweService {
       const context = await this.systemOauthClient.getClientCredentialsTokens()
       const goals = await this.curiousApi.getLearnerGoals(context, nomisId)
 
-      if (Array.isArray(goals) && goals.length > 0) {
-        const { employmentGoals, personalGoals } = goals[0]
-        const displayedGoals = {
-          employmentGoals: employmentGoals.length ? employmentGoals : [DATA_NOT_ADDED],
-          personalGoals: personalGoals.length ? personalGoals : [DATA_NOT_ADDED],
-        }
-        return createFlaggedContent(displayedGoals)
+      const { employmentGoals, personalGoals } = goals
+      const displayedGoals = {
+        employmentGoals: employmentGoals.length ? employmentGoals : [DATA_NOT_ADDED],
+        personalGoals: personalGoals.length ? personalGoals : [DATA_NOT_ADDED],
       }
-      return createFlaggedContent(DEFAULT_GOALS)
+      return createFlaggedContent(displayedGoals)
     } catch (e) {
       if (e.status === 404) {
         log.info(`Offender record not found in Curious.`)

@@ -30,19 +30,8 @@ export default class CuriousApi {
       .then((response) => response.body)
   }
 
-  getLearnerGoals(context: ClientContext, nomisId: string): Array<curious.LearnerGoals> {
-    // return this.client
-    //   .get<curious.LearnerProfile[]>(context, `/latestLearnerAssessments/${nomisId}`)
-    //   .then((response) => response.body)
-    return [
-      {
-        prn: 'sdfsdfs',
-        employmentGoals: ['To be a plumber', 'To get a plumbing qualification'],
-        personalGoals: [],
-        longTermGoals: ['To buy a house'],
-        shortTermGoals: ['To get out of my overdraft'],
-      },
-    ]
+  getLearnerGoals(context: ClientContext, nomisId: string): Promise<curious.LearnerGoals> {
+    return this.client.get<curious.LearnerGoals>(context, `/learnerGoals/${nomisId}`).then((response) => response.body)
   }
 
   private applyQuery = (path, query?: Record<string, unknown>) =>
