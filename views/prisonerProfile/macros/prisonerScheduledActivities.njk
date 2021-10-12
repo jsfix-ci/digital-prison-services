@@ -3,7 +3,7 @@
     {% for activity in activities %}
       {% set containterClass = "govuk-!-margin-bottom-3" if not loop.last %}
       <div class="{{ containterClass }}">
-        <strong>{{ activity.type }}</strong>
+        {{ activity.type }}
         <span>{{ ' - ' + activity.shortComment if activity.shortComment }}</span>
         {% if activity.cancelled %}
           <div class='highlight highlight--alert'>(cancelled)</div>
