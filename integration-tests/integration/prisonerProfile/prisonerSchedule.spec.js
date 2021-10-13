@@ -25,12 +25,12 @@ context('Prisoner schedule', () => {
             eventStatus: 'SCH',
             eventType: 'APP',
             eventTypeDesc: 'Appointment',
-            eventSubType: 'GYMF',
-            eventSubTypeDesc: 'Gym - Football',
+            eventSubType: 'INDU',
+            eventSubTypeDesc: 'AWAITING INDUCTION',
             eventDate: today.format('YYYY-MM-DD'),
             startTime: moment(today).set('hour', 16).set('minute', 30).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
             endTime: moment(today).set('hour', 17).set('minute', 30).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-            eventLocation: 'FOOTBALL',
+            eventLocation: 'INDUCTION',
             eventSource: 'APP',
             eventSourceCode: 'APP',
             eventSourceDesc: 'Test',
@@ -125,7 +125,7 @@ context('Prisoner schedule', () => {
         })
         cy.get('[data-test="schedule-afternoon-events"]').then(($events) => {
           cy.get($events).its('length').should('eq', 7)
-          expect($events.get(0).innerText).to.contain('Gym - Football - Test\n16:30 to 17:30')
+          expect($events.get(0).innerText).to.contain('Awaiting induction - Test\n16:30 to 17:30')
           expect($events.get(1).innerText).to.contain('Nothing scheduled')
         })
         cy.get('[data-test="schedule-evening-events"]').then(($events) => {

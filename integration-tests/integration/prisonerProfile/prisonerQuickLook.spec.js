@@ -123,7 +123,7 @@ const quickLookFullDetails = {
       eventType: 'APP',
       eventTypeDesc: 'Appointment',
       eventSubType: 'GYMF',
-      eventSubTypeDesc: 'Gym - Football',
+      eventSubTypeDesc: 'AWAITING INDUCTION',
       eventDate: '2020-04-17',
       startTime: '2020-04-17T20:20:00',
       endTime: '2020-04-17T20:35:00',
@@ -385,7 +385,7 @@ context('Prisoner quick look', () => {
             'Case - Benefits - Test Comment\n13:00 to 14:00\nGym - Sports Halls Activity - Test comment\n(cancelled)\n15:00 to 15:30'
           )
           expect($summaryValues.get(2).innerText).to.eq(
-            'Gym - Football - Testing a really long comment which is o...\n20:20 to 20:35'
+            'Awaiting induction - Testing a really long comment which is o...\n20:20 to 20:35'
           )
         })
     })
